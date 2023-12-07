@@ -1,9 +1,13 @@
 import * as Yup from "yup";
+import { promisify } from "util";
+import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import Appointment from "../models/Appointment";
 import Doctor from "../models/Doctor";
 import Patient from "../models/Patient";
 import { Op } from "sequelize";
+
+const verifyAsync = promisify(jwt.verify);
 
 class DoctorController {
   // Consultar todos os médicos
@@ -18,7 +22,19 @@ class DoctorController {
 
   // Mostrar um médico em específico, junto com as suas consultas marcadas
   async show(request, response) {
-    const { id } = request.params
+    const { id } = request.params;
+    const authHeader = request.headers.authorization;
+
+    try{
+      const decoded = await verifyAsync(authHeader, "fe67hzp5epvrde492d7jd4gv35kwv2sb")
+
+      if (!id || !decoded || decoded.id != id) {
+        return response.status(401).json({ error: "This token cannot access this doctor's route" })
+      }
+    } catch {
+      return response.status(401).json({ error: "This token cannot access this doctor's route" })
+    }
+
     const doctor = await Doctor.findByPk(id, {
       attributes: { exclude: ["password_hash", "createdAt", "updatedAt", "token"] },
       order: [[Appointment, "date", "ASC"]],
@@ -89,6 +105,17 @@ class DoctorController {
   // Atualizar dados do médico
   async update(request, response) {
     const { id } = request.params;
+    const authHeader = request.headers.authorization;
+
+    try{
+      const decoded = await verifyAsync(authHeader, "fe67hzp5epvrde492d7jd4gv35kwv2sb")
+
+      if (!id || !decoded || decoded.id != id) {
+        return response.status(401).json({ error: "This token cannot access this doctor's route" })
+      }
+    } catch {
+      return response.status(401).json({ error: "This token cannot access this doctor's route" })
+    }
 
     const doctor = await Doctor.findByPk(id);
 
@@ -135,6 +162,17 @@ class DoctorController {
   // Deletar um médico
   async delete(request, response) {
     const { id } = request.params;
+    const authHeader = request.headers.authorization;
+
+    try{
+      const decoded = await verifyAsync(authHeader, "fe67hzp5epvrde492d7jd4gv35kwv2sb")
+
+      if (!id || !decoded || decoded.id != id) {
+        return response.status(401).json({ error: "This token cannot access this doctor's route" })
+      }
+    } catch {
+      return response.status(401).json({ error: "This token cannot access this doctor's route" })
+    }
 
     const doctor = await Doctor.findByPk(id);
 

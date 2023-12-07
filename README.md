@@ -67,7 +67,7 @@ As rotas _/login_, _/register_pacients_ e _/register_doctors_ não precisa de au
 Ele irá retornar um token de acesso válido por 7 dias, com esse token você pode passar ao header _authorization_ para poder acessar as outras rotas
 
 
-3. Para criar uma nova consulta, você deve acessar a rotas _/appointments_ via _POST_ e passar os seguintes parâmetros:
+3. Para criar uma nova consulta, você deve acessar a rota _/appointments_ via _POST_ e passar os seguintes parâmetros:
   - _patient_id_: _number_
   - _doctor_id_: _number_
   - _description_: _string_
@@ -77,3 +77,8 @@ Ele irá retornar um token de acesso válido por 7 dias, com esse token você po
 
 
 4. Para verificar as consultas marcadas do médico ou do paciente acesse as rotas passando o parâmetro ID do médico ou paciente. _/doctors/:id_, _/patients/:id_
+
+
+#### Nota-se: os tokens de acesso para paciente e médicos são diferente, além que de as rotas de precisa passar uma parâmentro ID, como as rotas de _GET_, _PUT_ e _DELETE_, um usuário não consegue acessar se o ID for diferente.
+
+#### Exemplo: o médico com ID 2 não pode accessar a rota _/doctors/1_ por que o token de acesso dele guarda o ID dele, e verifica se a rota na qual ele que acessar é de seu ID ou não.

@@ -24,7 +24,7 @@ class LoginController {
         return response.status(200).json({
           email: patient.email,
           access: {
-            token: jwt.sign({ id: doctor.id }, "y8rbmhfeyvgkywpc1uqrwh4p57hxmls4", {
+            token: jwt.sign({ id: patient.id }, "y8rbmhfeyvgkywpc1uqrwh4p57hxmls4", {
               expiresIn: "7d",
             })
           },
@@ -42,7 +42,7 @@ class LoginController {
         return response.status(200).json({
           email: doctor.email,
           access: {
-            token: jwt.sign({ id: doctor.id }, "y8rbmhfeyvgkywpc1uqrwh4p57hxmls4", {
+            token: jwt.sign({ id: doctor.id }, "fe67hzp5epvrde492d7jd4gv35kwv2sb", {
               expiresIn: "7d",
             })
           },
