@@ -53,11 +53,15 @@ npm run dev
 
 As rotas _/login_, _/register_pacients_ e _/register_doctors_ não precisa de autorização passada do Header
 
+<img src="/assets/images/1.png">
+
 1. Para se criar um usuário, seja ele paciente ou médico deve-se usar o método _POST_ em algumas das rotas de registro e passar os seguintes parâmetros no body via JSON.
   - _name_: _string_
   - _email_: _string_
   - _password_: _string_
   - _tel_: _string_
+
+<img src="/assets/images/2.png">
 
 
 2. Para realizar o login, acesse a rota de _/login_ e passa o seguintes parâmetros no body via JSON.
@@ -65,6 +69,12 @@ As rotas _/login_, _/register_pacients_ e _/register_doctors_ não precisa de au
   - _password_: _string_
 
 Ele irá retornar um token de acesso válido por 7 dias, com esse token você pode passar ao header _authorization_ para poder acessar as outras rotas
+
+<img src="/assets/images/3.png">
+
+<img src="/assets/images/4.png">
+
+<img src="/assets/images/5.png">
 
 
 3. Para criar uma nova consulta, você deve acessar a rota _/appointments_ via _POST_ e passar os seguintes parâmetros:
@@ -75,10 +85,16 @@ Ele irá retornar um token de acesso válido por 7 dias, com esse token você po
   - _hour_: _number_
   - _minutes_: _number_
 
+<img src="/assets/images/6.png">
+
 
 4. Para verificar as consultas marcadas do médico ou do paciente acesse as rotas passando o parâmetro ID do médico ou paciente. _/doctors/:id_, _/patients/:id_
 
+<img src="/assets/images/7.png">
 
-#### Nota-se: os tokens de acesso para paciente e médicos são diferente, além que de as rotas de precisa passar uma parâmentro ID, como as rotas de _GET_, _PUT_ e _DELETE_, um usuário não consegue acessar se o ID for diferente.
+
+#### Nota-se: os tokens de acesso para paciente e médicos são diferente, além que de as rotas específicas onde precisa-se passar o parâmentro ID, como as rotas de _GET_, _PUT_ e _DELETE_, um usuário não consegue acessar se o ID for diferente.
 
 #### Exemplo: o médico com ID 2 não pode accessar a rota _/doctors/1_ por que o token de acesso dele guarda o ID dele, e verifica se a rota na qual ele que acessar é de seu ID ou não.
+
+<img src="/assets/images/8.png">
